@@ -31,7 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
-/backend/src/main/resources/application-local.properties
+backend/src/main/resources/application-local.properties
 /data/
-/frontend/node_modules
+frontend/node_modules
 .env*.local
