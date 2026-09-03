@@ -1,0 +1,44 @@
+* {
+	box-sizing: inherit;
+}
+
+html {
+	height: 100%;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #c5dafa;
+	margin: 0px;
+	height: 100vh;
+}
+
+footer {
+	width: 100%;
+	position: relative;
+	background-color: #F1EBE0FF;
+	padding: 1rem 1rem 1rem 1rem;
+}
+
+.header-box {
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	font-size: 22px;
+	min-height: 56px;
+	padding-left: 16px;
+	padding-right: 8px;
+}
+
+.wrapper {
+	margin: 10px;
+	min-height: 90.6vh;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+}
+
+.content {
+	background: #ffffff;
+	margin: 0;
+}

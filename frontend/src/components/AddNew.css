@@ -1,0 +1,27 @@
+.form-grid {
+	margin-left: 20px;
+	margin-bottom: 20px;
+	display: grid;
+	grid-column-gap: 10px;
+	grid-template-columns: auto;
+	grid-row-gap: 10px;
+}
+
+.row-grid {
+	display: grid;
+	flex-direction: row;
+	grid-template-columns: 200px 600px;
+}
+
+.row-grid label {
+	font-weight: 600;
+}
+
+.center-justify {
+	display: flex;
+	justify-content: center;
+}
+
+.bottom-message {
+	margin: 1em;
+}

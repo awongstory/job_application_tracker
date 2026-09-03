@@ -1,0 +1,21 @@
+.navbar {
+	position: sticky;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #F1EBE0FF;
+	padding: 1rem;
+	width: 100vw;
+}
+
+.navbar-link {
+	color: #5b3f00;
+	text-decoration: none;
+	font-size: 1rem;
+	font-family: serif;
+}
+
+nav {
+	width: 100vw;
+}
