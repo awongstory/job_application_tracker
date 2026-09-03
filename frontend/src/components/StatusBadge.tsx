@@ -5,6 +5,7 @@ export function StatusBadge({ statusId }) {
 	return (
 		<span style={{
 			backgroundColor: color,
+			textAlign: 'center',
 			color: '#ffffff',
 			padding: '2px 8px',
 			borderRadius: '9999px',

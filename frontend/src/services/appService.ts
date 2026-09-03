@@ -1,5 +1,5 @@
 import apiClient from './apiClient';
-import type { Application } from './types/Application';
+import type { Application } from '../types/Application';
 
 export const appService = {
   getApplications: async (): Promise<Application[]> => {
@@ -19,7 +19,6 @@ export const appService = {
 
   saveApplication: async (appPayload): Promise<Application> => {
     const { data } = await apiClient.post(`/applications`, appPayload);
-    console.log(data);
     return data;
   },
 

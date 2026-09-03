@@ -1,9 +1,10 @@
 import { useEffect, useState, useMemo } from 'react';
 import { appService } from '../services/appService.ts';
-import DataTable from 'react-data-table-component';
+import DataTable, { type TableColumn } from 'react-data-table-component';
 import { STATUS_OPTIONS } from '../types/Status.js';
 import { StatusBadge } from './StatusBadge';
 import { FaTrash } from 'react-icons/fa';
+import type { Application } from '../types/Application.js';
 import './Dashboard.css';
 
 export default function Dashboard() {
@@ -23,12 +24,19 @@ export default function Dashboard() {
     setApplications((prev) => prev.filter((a) => a.applicationId !== applicationId));
   };
 
-  const onCellUpdate = async (row: Application, field: keyof Application, value: unknown ) => {
-    const updated = { ...row, [field]: value};
-    await appService.saveApplication(updated);
-    setApplications((prev) => prev.map((a) => (a.applicationId === row.applicationId ? updated : a))
-    );
-    console.log(updated);
+  const handleCellEdit = async (row: Application,
+                                value: string,
+                                column: TableColumn<Application> ) => {
+    const field = column.id as keyof Application;
+    const updated = { ...row, [field]: value };
+
+    try {
+      await appService.saveApplication(updated);
+      setApplications((prev) =>
+        prev.map((a) => (a.applicationId === row.applicationId) ? updated : a));
+    } catch (error) {
+      console.error('Failed to save', error);
+    }
   }
 
   const columns = useMemo(() => [
@@ -36,15 +44,20 @@ export default function Dashboard() {
     { name: 'Date', selector: row => row.date },
     { name: 'Company', selector: row => row.companyName, sortable: true },
     { name: 'Job Title', selector: row => row.jobTitle, wrap: true },
-    { name: 'Status', selector: row => row.statusId,
+    { id: 'statusId',
+      name: 'Status', selector: row => row.statusId,
       editor: {
         type: 'select',
-        options: STATUS_OPTIONS,
-        onCellEdit: onCellUpdate,
+        options: STATUS_OPTIONS.map((option) => ({
+          value: String(option.value),
+          label: option.label,
+          })),
       },
       sortable: true,
       center: true,
-      cell: (row) => <StatusBadge statusId={ row.statusId} /> },
+      cell: (row) => <StatusBadge statusId={ row.statusId} />,
+      onCellEdit: (row, value, column) => handleCellEdit(row, value, column),
+    },
     { name: 'YOE', selector: row => row.yearsOfExperience, center: true },
     { name: 'Pay Range', selector: row => row.payRange, center: true },
     { name: 'Method', selector: row => row.method, center: true, minWidth: '90px' },
@@ -76,7 +89,6 @@ export default function Dashboard() {
                  defaultSortFieldId="applicationId"
                  defaultSortAsc={false}
                  columnSeparator
-                 onCellUpdate={onCellUpdate}
                  />
   );
 

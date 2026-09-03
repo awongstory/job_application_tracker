@@ -1,6 +1,6 @@
 import './Home.css';
 import { useState } from 'react';
-import { dadJokes, DadJoke } from '../types/DadJokes';
+import { dadJokes, type DadJoke } from '../types/DadJokes';
 
 function getRandomJoke(): DadJoke {
 	const index = Math.floor(Math.random() * dadJokes.length);
