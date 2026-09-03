@@ -32,7 +32,7 @@ export const dadJokes: DadJoke[] = [
 	},
 	{
 		id: 6,
-		text: "I don't know why people rate Excel very badly\n"
+		text: "I don't know why people rate Excel very badly —\n"
 		+ "\nPersonally, I give it October the 10th."
 	},
 ]

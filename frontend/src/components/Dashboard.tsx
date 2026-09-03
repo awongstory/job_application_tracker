@@ -41,7 +41,7 @@ export default function Dashboard() {
 
   const columns = useMemo(() => [
     { id: 'applicationId', name: 'ID', selector: row => row.applicationId, sortable: true, minWidth: '65px' },
-    { name: 'Date', selector: row => row.date },
+    { name: 'Date', selector: row => row.date, sortable: true },
     { name: 'Company', selector: row => row.companyName, sortable: true },
     { name: 'Job Title', selector: row => row.jobTitle, wrap: true },
     { id: 'statusId',
