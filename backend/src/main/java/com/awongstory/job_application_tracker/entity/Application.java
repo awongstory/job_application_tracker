@@ -1,10 +1,14 @@
 package com.awongstory.job_application_tracker.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,11 +17,11 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @Entity
-@Table
+@Table(name = "Application")
 public class Application {
 
     @Id
-    @Column(name = "ApplicationId", nullable = false)
+    @Column(name = "ApplicationId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int applicationId;
 
@@ -47,6 +51,10 @@ public class Application {
 
     @Column(name = "LoginLink")
     private String loginLink;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "NoteId", nullable = true)
+    private Note note;
 
     @CreationTimestamp
     @Column(name = "DateCreated", insertable = false, updatable = false)

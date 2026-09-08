@@ -1,10 +1,12 @@
 import { useEffect, useState, useMemo } from 'react';
 import { appService } from '../services/appService.ts';
-import DataTable, { type TableColumn } from 'react-data-table-component';
+import DataTable, { type TableColumn, type ExpanderComponentProps } from 'react-data-table-component';
 import { STATUS_OPTIONS } from '../types/Status.js';
 import { StatusBadge } from './StatusBadge';
 import { FaTrash } from 'react-icons/fa';
 import type { Application } from '../types/Application.js';
+import { ApplicationExpandedRow } from './ApplicationExpandedRow';
+import type { Note } from '../types/Note.js';
 import './Dashboard.css';
 
 export default function Dashboard() {
@@ -83,6 +85,8 @@ export default function Dashboard() {
       <DataTable title="Applications Dashboard"
                  columns={columns}
                  data={applications}
+                 expandableRows
+                 expandableRowsComponent={ApplicationExpandedRow}
                  pagination
                  paginationPerPage={10}
                  progressPending={loading}

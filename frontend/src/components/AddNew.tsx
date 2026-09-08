@@ -1,6 +1,7 @@
 import { createNewApplication, type Application } from '../types/Application';
 import { useState } from 'react';
 import { STATUS_OPTIONS } from '../types/Status';
+import { METHOD } from '../types/Method';
 import { appService } from '../services/appService';
 import './AddNew.css';
 
@@ -16,6 +17,14 @@ export function AddNewApplication() {
 
 	function handleChange<K extends keyof Application>(field: K, value: Application[K]): void {
 		setForm((prev) => ({ ...prev, [field]: value }));
+		setSuccess(false);
+	}
+
+	function handleNoteChange(noteText: string) {
+		setForm((prev) => ({
+			...prev,
+			note: noteText.trim() === '' ? null : {noteId: prev.note?.noteId ?? 0, noteText},
+		}));
 		setSuccess(false);
 	}
 
@@ -70,11 +79,13 @@ export function AddNewApplication() {
 
 				<div className="row-grid">
 					<label>Method</label>
-					<input
-						value={form.method}
-						onChange={(e) => handleChange('method', e.target.value)}
-						placeholder="e.g. LinkedIn, Referral, direct"
-					/>
+					<select value={form.method}
+									onChange={(e) => handleChange('method', e.target.value)}
+					>
+						{Object.values(METHOD).map((status) => (
+							<option key={status} value={status}>{ status }</option>
+						))}
+					</select>
 				</div>
 
 				<div className="row-grid">
@@ -129,6 +140,16 @@ export function AddNewApplication() {
 						onChange={(e) => handleChange('loginLink', e.target.value)}
 					/>
 				</div>
+
+				<div className="row-grid">
+					<label>Note</label>
+					<input
+						type="text"
+						value={form.note?.noteText?? ''}
+						onChange={(e) => handleNoteChange(e.target.value)}
+					/>
+				</div>
+
 
 				<div className="bottom-message">
 					<p style={{ color: success ? 'green' : 'red' }}>

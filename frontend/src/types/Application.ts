@@ -1,3 +1,5 @@
+import { type Note, createNewNote } from '../types/Note';
+
 export interface Application {
 	applicationId: number;
 	date: Date;
@@ -9,6 +11,7 @@ export interface Application {
 	statusId: number;
 	postingLink: string;
 	loginLink: string;
+	note: Note | null;
 }
 
 export function createNewApplication(): Application {
@@ -23,5 +26,6 @@ export function createNewApplication(): Application {
 		statusId: 1, // defaults to APPLIED
 		postingLink: '',
 		loginLink: '',
+		note: '',
 	};
 }

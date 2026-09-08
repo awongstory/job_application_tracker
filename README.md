@@ -1,10 +1,10 @@
 # Job Application Tracker
 
-This web app was built as an Excel-alternative to managing the job applications process, using a Spring Boot backend and Vite + React frontend.
+This web app was built to manage the job applications process, using a Spring Boot backend and Vite + React frontend.
 
 The UI has a paginated dashboard of job applications (sorted by descending App IDs), inline-edit applications' statuses, and one-click to open the job posting or login links (for the recruiting SaaS, ie., iCIMS, Ashby, etc.) in a new tab. There is also an Add Entry for new job applications.
 
-The initial page has a very small list of Dad jokes related to persistence, interviewing, or tech. While not central to the functionality of this app, it serves as a way to add some humor.
+The initial page has a very small list of Dad jokes related to persistence, interviewing, or tech. While not central to the functionality of this app, it serves as a way to add some humor
 
 ```
 /

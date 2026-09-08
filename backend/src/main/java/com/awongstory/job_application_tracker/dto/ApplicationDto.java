@@ -16,4 +16,5 @@ public class ApplicationDto {
     private int statusId;
     private String postingLink;
     private String loginLink;
+    private NoteDto note;
 }
