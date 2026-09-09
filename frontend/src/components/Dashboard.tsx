@@ -68,7 +68,7 @@ export default function Dashboard() {
           link
         </a> : null },
     { name: 'Login link', center: true, minWidth: '90px', cell: (row) => row.loginLink ?
-        <a href={row.loginLink} target="_blank">
+        <a href={row.loginLink} target="_blank" className="dashboard-link">
           link
         </a> : null },
     { name: 'Actions', center: true, button: true, cell: (row) => (
