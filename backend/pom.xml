@@ -11,27 +11,11 @@
 	<groupId>com.awongstory</groupId>
 	<artifactId>job_application_tracker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
 	<properties>
-		<project.basedir>job_application_tracker</project.basedir>
-		<project.output.dir>job_application_tracker/backend/src/main/resources</project.output.dir>
 		<java.version>21</java.version>
 		<eirslett.version>2.0.2</eirslett.version>
 		<node.version>v24.12.0</node.version>
+		<npm.version>11.6.2</npm.version>
 		<maven.resources.plugin.version>3.5.0</maven.resources.plugin.version>
 	</properties>
 	<dependencies>
@@ -39,11 +23,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-h2console</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -84,47 +63,22 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>default-compile</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-						<configuration>
-							<annotationProcessorPaths>
-								<path>
-									<groupId>org.projectlombok</groupId>
-									<artifactId>lombok</artifactId>
-								</path>
-							</annotationProcessorPaths>
-						</configuration>
-					</execution>
-					<execution>
-						<id>default-testCompile</id>
-						<phase>test-compile</phase>
-						<goals>
-							<goal>testCompile</goal>
-						</goals>
-						<configuration>
-							<annotationProcessorPaths>
-								<path>
-									<groupId>org.projectlombok</groupId>
-									<artifactId>lombok</artifactId>
-								</path>
-							</annotationProcessorPaths>
-						</configuration>
-					</execution>
-				</executions>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
 			</plugin>
 			<!--	Installs Node.js, runs npm install and npm run build locally		-->
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
+				<version>${eirslett.version}</version>
 				<configuration>
-					<workingDirectory>${project.basedir}/frontend</workingDirectory>
-					<installDirectory>target</installDirectory>
-					<version>${eirslett.version}</version>
+					<workingDirectory>${project.basedir}/../frontend</workingDirectory>
 				</configuration>
 				<executions>
 					<execution>
@@ -134,6 +88,7 @@
 						</goals>
 						<configuration>
 							<nodeVersion>${node.version}</nodeVersion>
+							<npmVersion>${npm.version}</npmVersion>
 						</configuration>
 					</execution>
 					<execution>
@@ -166,13 +121,12 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.output.dir}/static</outputDirectory>
+							<outputDirectory>${project.build.directory}/classes/static</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${project.basedir}/frontend/dist</directory>
+									<directory>${project.basedir}/../frontend/dist</directory>
 								</resource>
 							</resources>
-
 						</configuration>
 					</execution>
 				</executions>

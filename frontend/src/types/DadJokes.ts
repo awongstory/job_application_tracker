@@ -15,7 +15,7 @@ export const dadJokes: DadJoke[] = [
 	},
 	{ id: 3,
 		text: "I keep getting phone calls from “Potential Spam”.\n"
-		+ "\nI pick up because I believe in the potential."
+		+ "\nI pick up because I believe in their potential."
 	},
 	{ id: 4,
 		text: "Interviewer: What is your greatest strength?\n"
@@ -34,5 +34,16 @@ export const dadJokes: DadJoke[] = [
 		id: 6,
 		text: "I don't know why people rate Excel very badly —\n"
 		+ "\nPersonally, I give it October the 10th."
+	},
+	{
+		id: 7,
+		text: "How do you measure dad jokes?\n"
+		+ "\nBy using a sighs-mograph."
+	},
+	{
+		id: 8,
+		text: "Me: Dad, I'm afraid of the bougie man under the bed.\n"
+		+ "\nDad: You mean, the boogeyman.\n"
+		+ "\nVoice from under the bed: What is this, 200 thread count?"
 	},
 ]

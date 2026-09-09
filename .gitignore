@@ -31,7 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Misc ###
 backend/src/main/resources/application-local.properties
-/data/
+backend/data/
+backend/frontend/
+frontend/node
 frontend/node_modules
-.env*.local
+.env.development.*
+frontend/dist/
+*.*.db
