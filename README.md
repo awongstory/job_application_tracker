@@ -26,6 +26,10 @@ This app is initially configured to use an H2 file, which will be created in a /
 #### Option 1: Running it as a packaged app:
 This builds the React frontend, embeds it into Spring Boot jar, and runs everything on a single process on a single port. No Node, CORS, or proxy config required.
 
+Clone repo:
+
+`git clone git@github.com:awongstory/job_application_tracker.git`
+
 - Using Git Bash
 
 `./run.sh`
@@ -34,11 +38,10 @@ This builds the React frontend, embeds it into Spring Boot jar, and runs everyth
 
 `& "C:\Program Files\Git\bin\bash.exe" -c "./run.sh"`
 
-Manually:
+- Manually:
 
 ```
-git clone git@github.com:awongstory/job_application_tracker.git
-cd job-application-tracker/backend
+cd job_application_tracker/backend
 ./mvnw clean package
 java -jar target/job_application_tracker-0.0.1-SNAPSHOT.jar
 ```
