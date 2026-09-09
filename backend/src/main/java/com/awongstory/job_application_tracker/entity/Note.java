@@ -6,9 +6,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
-import java.time.LocalDateTime;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Data
 @Entity
@@ -24,9 +25,10 @@ public class Note {
     private String noteText;
 
     @CreationTimestamp
-    @Column(name = "DateCreated", insertable = false, updatable = false)
+    @Column(name = "DateCreated", nullable = false, updatable = false)
     private LocalDateTime dateCreated;
 
-    @Column(name = "LastUpdated", insertable = false, updatable = false)
+    @UpdateTimestamp
+    @Column(name = "LastUpdated")
     private LocalDateTime lastUpdated;
 }

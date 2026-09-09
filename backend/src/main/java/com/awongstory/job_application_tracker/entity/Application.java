@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Data
 @Entity
@@ -57,9 +58,10 @@ public class Application {
     private Note note;
 
     @CreationTimestamp
-    @Column(name = "DateCreated", insertable = false, updatable = false)
+    @Column(name = "DateCreated", nullable = false, updatable = false)
     private LocalDateTime dateCreated;
 
-    @Column(name = "LastUpdated", insertable = false, updatable = false)
+    @UpdateTimestamp
+    @Column(name = "LastUpdated")
     private LocalDateTime lastUpdated;
 }

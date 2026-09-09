@@ -23,9 +23,8 @@ export function AddNewApplication() {
 	function handleNoteChange(noteText: string) {
 		setForm((prev) => ({
 			...prev,
-			note: noteText.trim() === '' ? null : {noteId: prev.note?.noteId ?? 0, noteText},
+			note: noteText.trim() === '' ? null : { noteId: prev.note?.noteId ?? 0, noteText },
 		}));
-		setSuccess(false);
 	}
 
 	async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -143,7 +142,7 @@ export function AddNewApplication() {
 
 				<div className="row-grid">
 					<label>Note</label>
-					<input
+					<textarea
 						type="text"
 						value={form.note?.noteText?? ''}
 						onChange={(e) => handleNoteChange(e.target.value)}

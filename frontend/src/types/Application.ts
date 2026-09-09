@@ -26,6 +26,6 @@ export function createNewApplication(): Application {
 		statusId: 1, // defaults to APPLIED
 		postingLink: '',
 		loginLink: '',
-		note: '',
+		note: null,
 	};
 }
