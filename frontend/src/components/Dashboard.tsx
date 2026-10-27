@@ -7,12 +7,14 @@ import { FaTrash } from 'react-icons/fa';
 import type { Application } from '../types/Application.js';
 import { ApplicationExpandedRow } from './ApplicationExpandedRow';
 import type { Note } from '../types/Note.js';
+import SearchPanel from './SearchPanel';
 import './Dashboard.css';
 
 export default function Dashboard() {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filters, setFilters] = useState({ text: "", statusId: "" });
 
   useEffect(() => {
     appService.getApplications()
@@ -41,11 +43,31 @@ export default function Dashboard() {
     }
   }
 
+  var filteredApplications = useMemo(() => {
+    const text = filters.text.trim().toLowerCase();
+    return applications.filter((application) => {
+      const matchesText =
+        !text || application.companyName.toLowerCase().includes(text); // add other fields as needed
+      const matchesStatus =
+        filters.statusId === "" || application.statusId === Number(filters.statusId);
+
+      return matchesText && matchesStatus;
+    });
+  }, [applications, filters]);
+
   const columns = useMemo(() => [
     { id: 'applicationId', name: 'ID', selector: row => row.applicationId, sortable: true, minWidth: '65px' },
     { name: 'Date', selector: row => row.date, sortable: true },
-    { name: 'Company', selector: row => row.companyName, sortable: true },
-    { name: 'Job Title', selector: row => row.jobTitle, wrap: true },
+    { name: 'Company', selector: row => row.companyName, sortable: true,
+      sortFunction: (rowA, rowB) => {
+        const a = rowA.companyName || '';
+        const b = rowB.companyName || '';
+        return a.localeCompare(b, "en", {sensitivity: 'base'});
+      },
+    },
+    { id: 'jobTitle', name: 'Job Title', selector: row => row.jobTitle, editable: true, wrap: true,
+      onCellEdit: (row, value, column) => handleCellEdit(row, value, column),
+    },
     { id: 'statusId',
       name: 'Status', selector: row => row.statusId,
       editor: {
@@ -61,17 +83,39 @@ export default function Dashboard() {
       onCellEdit: (row, value, column) => handleCellEdit(row, value, column),
     },
     { name: 'YOE', selector: row => row.yearsOfExperience, center: true },
-    { name: 'Pay Range', selector: row => row.payRange, center: true },
+    { id: 'payRange', name: 'Pay Range',
+      selector: row => row.payRange,
+      format: row => row.payRange ? `$${row.payRange}k` : '',
+      center: true,
+      editable: true,
+      onCellEdit: (row, value, column) => handleCellEdit(row, value, column)
+    },
     { name: 'Method', selector: row => row.method, center: true, minWidth: '90px' },
-    { name: 'Job Link', center: true, minWidth: '90px', cell: (row) => row.postingLink ?
+    { id: 'postingLink',
+      name: 'Posting Link',
+      selector: row => row.postingLink,
+      center: true,
+      minWidth: '90px',
+      editable: true,
+      onCellEdit: (row, value, column) => handleCellEdit(row, value, column),
+      cell: (row) => row.postingLink ?
         <a href={row.postingLink} target="_blank" className="dashboard-link">
           link
         </a> : null },
-    { name: 'Login link', center: true, minWidth: '90px', cell: (row) => row.loginLink ?
+    { name: 'Login link',
+      selector: row => row.loginLink,
+      center: true,
+      minWidth: '90px',
+      editable: true,
+      onCellEdit: (row, value, column) => handleCellEdit(row, value, column),
+      cell: (row) => row.loginLink ?
         <a href={row.loginLink} target="_blank" className="dashboard-link">
           link
         </a> : null },
-    { name: 'Actions', center: true, button: true, cell: (row) => (
+    { name: 'Actions',
+      center: true,
+      button: true,
+      cell: (row) => (
       <div>
         <button type="button" onClick={() => handleDelete(row.applicationId)} className="icon-button"><FaTrash /></button>
       </div>
@@ -82,9 +126,11 @@ export default function Dashboard() {
   if (error) return <p>error: {error.message}</p>;
 
   return (
-      <DataTable title="Applications Dashboard"
-                 columns={columns}
-                 data={applications}
+    <div>
+      <div className="header-box">Applications Dashboard</div>
+      <SearchPanel filters={filters} onChange={setFilters} />
+      <DataTable columns={columns}
+                 data={filteredApplications}
                  expandableRows
                  expandableRowsComponent={ApplicationExpandedRow}
                  pagination
@@ -94,6 +140,7 @@ export default function Dashboard() {
                  defaultSortAsc={false}
                  columnSeparator
                  />
+    </div>
   );
 
 };

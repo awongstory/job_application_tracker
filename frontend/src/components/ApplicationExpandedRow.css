@@ -3,9 +3,25 @@
 	color: #000000;
 	font-family: serif;
 	font-size: 1rem;
-
+	display: grid;
 }
 
 .note-area {
 	width: 100%;
+	border: none;
+	color: #183163;
+	outline: none;
+	background-color: transparent;
+}
+
+.note-button {
+	justify-self: start;
+}
+
+.editing {
+	color: #000000;
+	border: 2px solid #000000;
+	border-radius: 5px;
+	width: 100%;
+	background-color: transparent;
 }

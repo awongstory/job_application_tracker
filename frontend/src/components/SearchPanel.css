@@ -1,0 +1,9 @@
+.search-grid {
+	display: flex;
+	flex-direction: row;
+	grid-template-rows: min-content min-content;
+	grid-template-columns: min-content min-content min-content min-content;
+	grid-column-gap: 15px;
+	margin: 15px 15px;
+	max-height: 20px;
+}
