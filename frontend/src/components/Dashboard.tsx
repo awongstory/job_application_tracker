@@ -14,7 +14,7 @@ export default function Dashboard() {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const filteredApplications = applications;
+  const [filters, setFilters] = useState({ text: "", statusId: "" });
 
   useEffect(() => {
     appService.getApplications()
@@ -43,11 +43,31 @@ export default function Dashboard() {
     }
   }
 
+  var filteredApplications = useMemo(() => {
+    const text = filters.text.trim().toLowerCase();
+    return applications.filter((application) => {
+      const matchesText =
+        !text || application.companyName.toLowerCase().includes(text); // add other fields as needed
+      const matchesStatus =
+        filters.statusId === "" || application.statusId === Number(filters.statusId);
+
+      return matchesText && matchesStatus;
+    });
+  }, [applications, filters]);
+
   const columns = useMemo(() => [
-    { id: 'applicationId', name: 'ID', selector: row => row.applicationId, sortable: true, minWidth: '65px' },
+    // { id: 'applicationId', name: 'ID', selector: row => row.applicationId, sortable: true, minWidth: '65px' },
     { name: 'Date', selector: row => row.date, sortable: true },
-    { name: 'Company', selector: row => row.companyName, sortable: true },
-    { name: 'Job Title', selector: row => row.jobTitle, editable: true, wrap: true },
+    { name: 'Company', selector: row => row.companyName, sortable: true,
+      sortFunction: (rowA, rowB) => {
+        const a = rowA.companyName || '';
+        const b = rowB.companyName || '';
+        return a.localeCompare(b, "en", {sensitivity: 'base'});
+      },
+    },
+    { id: 'jobTitle', name: 'Job Title', selector: row => row.jobTitle, editable: true, wrap: true,
+      onCellEdit: (row, value, column) => handleCellEdit(row, value, column),
+    },
     { id: 'statusId',
       name: 'Status', selector: row => row.statusId,
       editor: {
@@ -63,11 +83,13 @@ export default function Dashboard() {
       onCellEdit: (row, value, column) => handleCellEdit(row, value, column),
     },
     { name: 'YOE', selector: row => row.yearsOfExperience, center: true },
-    { name: 'Pay Range',
+    { id: 'payRange', name: 'Pay Range',
       selector: row => row.payRange,
       format: row => row.payRange ? `$${row.payRange}k` : '',
       center: true,
-      editable: true },
+      editable: true,
+      onCellEdit: (row, value, column) => handleCellEdit(row, value, column)
+    },
     { name: 'Method', selector: row => row.method, center: true, minWidth: '90px' },
     { id: 'postingLink',
       name: 'Posting Link',
@@ -85,6 +107,7 @@ export default function Dashboard() {
       center: true,
       minWidth: '90px',
       editable: true,
+      onCellEdit: (row, value, column) => handleCellEdit(row, value, column),
       cell: (row) => row.loginLink ?
         <a href={row.loginLink} target="_blank" className="dashboard-link">
           link
@@ -105,7 +128,7 @@ export default function Dashboard() {
   return (
     <div>
       <div className="header-box">Applications Dashboard</div>
-      <SearchPanel data={applications}/>
+      <SearchPanel filters={filters} onChange={setFilters} />
       <DataTable columns={columns}
                  data={filteredApplications}
                  expandableRows
