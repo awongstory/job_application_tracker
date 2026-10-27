@@ -56,7 +56,7 @@ export default function Dashboard() {
   }, [applications, filters]);
 
   const columns = useMemo(() => [
-    // { id: 'applicationId', name: 'ID', selector: row => row.applicationId, sortable: true, minWidth: '65px' },
+    { id: 'applicationId', name: 'ID', selector: row => row.applicationId, sortable: true, minWidth: '65px' },
     { name: 'Date', selector: row => row.date, sortable: true },
     { name: 'Company', selector: row => row.companyName, sortable: true,
       sortFunction: (rowA, rowB) => {
