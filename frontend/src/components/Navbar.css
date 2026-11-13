@@ -1,21 +1,20 @@
 .navbar {
 	position: sticky;
 	display: flex;
-	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	background-color: #F1EBE0FF;
+	background-color: #000000;
 	padding: 1rem;
 	width: 100vw;
 }
 
 .navbar-link {
-	color: #5b3f00;
-	text-decoration: none;
-	font-size: 1rem;
-	font-family: serif;
+	color: #ffffff;
+	margin-left: 10px;
 }
 
-nav {
-	width: 100vw;
+.nav-group {
+	display: flex;
+	gap: 0.75rem;
+	margin: 0 5px;
 }

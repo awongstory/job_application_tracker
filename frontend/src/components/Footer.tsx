@@ -1,7 +1,7 @@
 export const Footer = () => {
 	return (
-		<footer>
-				© 2026 awongstory
+		<footer class="text-center">
+				© 2026 Job Application Tracker
 		</footer>
 	)
 };

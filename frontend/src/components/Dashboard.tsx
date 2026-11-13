@@ -3,7 +3,7 @@ import { appService } from '../services/appService.ts';
 import DataTable, { type TableColumn, type ExpanderComponentProps } from 'react-data-table-component';
 import { STATUS_OPTIONS } from '../types/Status.js';
 import { StatusBadge } from './StatusBadge';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaEdit } from 'react-icons/fa';
 import type { Application } from '../types/Application.js';
 import { ApplicationExpandedRow } from './ApplicationExpandedRow';
 import type { Note } from '../types/Note.js';
@@ -117,8 +117,10 @@ export default function Dashboard() {
       button: true,
       cell: (row) => (
       <div>
+        <button type="button" onClick={() => handleEdit(row.applicationId)} className="icon-button"><FaEdit /></button>
         <button type="button" onClick={() => handleDelete(row.applicationId)} className="icon-button"><FaTrash /></button>
       </div>
+
       ) }
   ], []);
 

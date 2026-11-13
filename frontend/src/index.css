@@ -7,6 +7,10 @@ html {
 	box-sizing: border-box;
 }
 
+.page-container {
+	margin: 0;
+}
+
 body {
 	background-color: #ffffff;
 	margin: 0px;
@@ -14,31 +18,33 @@ body {
 }
 
 footer {
-	width: 100%;
-	position: relative;
-	background-color: #F1EBE0FF;
-	padding: 1rem 1rem 1rem 1rem;
+	width: 100vw;
+	position: static;
+	background-color: #000000;
+	padding: 0.5rem;
+	color: #FFFFFF;
 }
 
 .header-box {
 	box-sizing: border-box;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	width: 100%;
 	font-size: 22px;
-	min-height: 56px;
-	padding-left: 16px;
-	padding-right: 8px;
+	height: 56px;
+	/*padding-left: 16px;*/
+	/*padding-right: 8px;*/
 }
 
 .wrapper {
-	margin: 10px;
-	min-height: 90.6vh;
+	height: 100dvh;
 	display: grid;
 	grid-template-rows: auto 1fr auto;
+	margin: 0px;
 }
 
-.content {
+content {
 	background: #ffffff;
 	margin: 0;
 }
